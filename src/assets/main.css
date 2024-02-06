@@ -1,0 +1,365 @@
+@import './base.css';
+
+#app {
+  @apply w-full h-full flex flex-col;
+  /* width: 100%; */
+  /* max-width: 1280px; */
+  min-height: 100vh;
+  height: 100%;
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  /* padding: 2rem 0; */
+  font-weight: normal;
+}
+
+/* a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+} */
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    /* flex-direction: column; */
+    /* place-items: center; */
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    /* border: 2px solid #333; */
+  }
+}
+
+/* ? app 下層的尺寸設定 */
+
+/* 後台框架 */
+.app-back-container {
+  @apply px-6;
+  padding-top: 84px;
+}
+
+/* 前台框架 - 尚未使用到 */
+.app-front-container {
+  /* @apply px-6; */
+  padding-top: 84px;
+}
+
+/* ? 以下為自訂義樣式 class */
+
+/* blue-line */
+.blue-line {
+  @apply w-px h-full;
+  background: rgba(11, 117, 181, 0.8);
+}
+
+/* 圓形按鈕 */
+.btn-circle {
+  @apply rounded-full w-14 h-14 bg-white border border-gray-300;
+}
+
+/* 選擇語言 按鈕 */
+.selected-language {
+  /* @apply w-12 h-12; */
+  border-radius: 55px;
+  border: 2px solid var(--color-blue);
+  background: var(--color-blueLight);
+}
+
+/* ? icon */
+
+.icon-blue-hover:hover path {
+  stroke: var(--color-blue);
+  /* stroke: #fff; */
+}
+
+.icon-blue-hover-fill:hover path {
+  fill: var(--color-blue);
+  /* stroke: #fff; */
+}
+
+.icon-blueDark-hover:hover path {
+  stroke: var(--color-blueDark);
+  /* stroke: #fff; */
+}
+
+.icon-blueDark-hover-fill:hover path {
+  fill: var(--color-blueDark);
+  /* stroke: #fff; */
+}
+
+.icon-red-hover:hover path {
+  stroke: var(--color-red);
+  /* stroke: #fff; */
+}
+
+.icon-red-hover-fill:hover path {
+  fill: var(--color-red);
+  /* stroke: #fff; */
+}
+
+/* ? text blue */
+
+.text-blue {
+  color: var(--color-blue);
+}
+
+.bg-blue {
+  background: var(--color-blue);
+}
+
+.border-blue {
+  border-color: var(--color-blue);
+}
+
+.text-blueLight {
+  color: var(--color-blueLight);
+}
+
+.bg-blueLight {
+  background: var(--color-blueLight);
+}
+
+.border-blueLight {
+  border-color: var(--color-blueLight);
+}
+
+.text-blueDark {
+  color: var(--color-blueDark);
+}
+
+.bg-blueDark {
+  background: var(--color-blueDark);
+}
+
+.border-blueDark {
+  border-color: var(--color-blueDark);
+}
+
+.bg-background {
+  background: var(--color-background);
+}
+
+/* ? image */
+.pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bg-pic {
+  @apply w-full h-full bg-cover bg-center;
+}
+
+.pic-card {
+  border-radius: 12px;
+  box-shadow: 4px 4px 2px 0px rgba(21, 67, 95, 0.4);
+  backdrop-filter: blur(1px);
+}
+
+/* ? banner */
+.banner {
+  @apply w-full h-40 lg:h-56 relative;
+
+  .banner-overlay {
+    @apply absolute inset-0 bg-black opacity-40;
+  }
+
+  .banner-title {
+    @apply absolute inset-0 flex mt-10 justify-center items-center  text-white font-bold text-3xl lg:text-4xl px-4;
+  }
+
+  /* BUG 無法正常顯示桿桿 */
+  .first-letter-underline::first-letter {
+    border-bottom: 3px solid #f8c471 !important;
+    padding-right: 2.5px;
+  }
+}
+
+/* ? 每頁都有的東東 */
+
+/* * 每頁的大標題 page title */
+.page-title {
+  @apply text-center mt-10 lg:mt-20 mb-5 lg:mb-10;
+
+  .page-title-txt {
+    @apply relative text-2xl lg:text-3xl font-medium;
+  }
+
+  .page-title-txt::after {
+    @apply absolute w-8 h-8 bg-no-repeat bg-center;
+    content: '';
+    right: 102%;
+    top: 0;
+    background-image: url('/img/Icon/blue-line.svg');
+  }
+}
+
+/* * 每頁的留白 page padding ( 左右下 ) */
+.page-content {
+  @apply px-5 lg:px-10 pb-5 lg:pb-10;
+}
+
+.page-content-top {
+  @apply pt-5 lg:pt-10;
+}
+
+/* * 首頁的按鈕 */
+
+/* btn-more */
+.btn-more {
+  @apply relative border-2 w-[140px] h-10 rounded-full pl-3;
+  border-color: var(--color-blue);
+
+  .btn-more-icon {
+    @apply font-semibold;
+    color: var(--color-blue);
+  }
+
+  .btn-more-icon::before {
+    @apply absolute w-6 h-6 bg-no-repeat bg-center;
+    content: '';
+    top: 6px;
+    left: 22px;
+    background-image: url('/img/Icon/plus.svg');
+  }
+}
+
+/* 只有圓點點的選擇框 radio-button */
+
+.radio {
+  @apply flex gap-3;
+
+  .radio-button {
+    @apply w-[16px] h-[16px] border-8 border-gray-300 rounded-[50%];
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+
+    &:checked {
+      border-color: var(--color-blue);
+    }
+  }
+
+  .radio-txt {
+    @apply pl-2 text-xs;
+  }
+}
+
+/* TODO Backend style */
+
+/* ? 輸入框 */
+
+/* 標題旁註解文字 */
+.label-note {
+  @apply text-gray-400 text-sm ml-[6px];
+}
+
+/* 輸入框 - 後台樣式 */
+.input-backend {
+  @apply w-full block mt-1 py-2 px-3 rounded-md border border-gray-300 shadow-sm text-gray-700 focus-visible:outline-blue-200 cursor-pointer relative;
+}
+.input-backend::after {
+  /* @apply ; */
+  @apply absolute  z-10  bg-white top-1/2 -translate-y-1/2  border border-blue rounded-md text-center text-blue hover:bg-blue-50;
+  width: 82px;
+  height: 36px;
+  line-height: 36px;
+  left: 10px;
+  content: '選擇檔案';
+}
+
+/* 輸入框 & 圖片預覽 */
+.input-backend-pic-flex {
+  @apply flex flex-col gap-1;
+}
+
+/* ? Footer */
+
+/* 頁尾 */
+.backend-footer {
+  @apply flex justify-between items-center;
+}
+
+/* ? Btn */
+
+/* 藍色按鈕 */
+.btn-blue {
+  @apply text-white bg-blue hover:bg-sky-700 w-28 h-10 rounded-md font-medium  text-base;
+}
+
+/* 藍色 s 按鈕 */
+.btn-blue-s {
+  @apply text-white bg-blue hover:bg-sky-700 px-5 py-2 rounded-md font-medium text-base;
+}
+
+/* 藍色空心按鈕 */
+.btn-blue-border {
+  @apply w-28 h-10 font-medium border border-blue text-blue rounded-md hover:bg-blue-50 text-base;
+}
+
+/* 白色按鈕 */
+.btn-white {
+  @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 w-28 h-10 rounded-md font-medium text-base;
+}
+
+/* 白色 s 按鈕 */
+.btn-white-s {
+  @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 px-5 py-2 rounded-md font-medium text-base;
+}
+
+/* 紅色按鈕 */
+.btn-red {
+  @apply text-white border hover:bg-red-600 w-28 h-10 rounded-md font-medium text-base;
+  background-color: var(--color-red);
+}
+
+/* 紅色 s 按鈕 */
+.btn-red-s {
+  @apply text-white border hover:bg-red-600 px-5 py-2 rounded-md font-medium text-base;
+  background-color: var(--color-red);
+}
+
+/* 看圖片 btn */
+.backend-look-pic-btn {
+  @apply flex items-center gap-1 border border-gray-300 text-gray-400 px-3 py-1 rounded-md hover:bg-blue-50 hover:text-blue-500 hover:border-blue-500 text-base;
+}
+
+.backend-look-pic-btn-focus {
+  @apply text-blue-500 border-blue-500;
+}
+/* 
+:class="{ 'backend-look-pic-btn-focus': showBanner }" */
+
+/* ? Block Flex & Title & Hr */
+
+/* 區塊排版 */
+.backend-block-flex {
+  @apply flex flex-col gap-3;
+}
+
+/* 每頁最上方大標題 */
+.backend-page-title {
+  @apply flex justify-between items-center text-xl pb-3 border-b border-gray-300;
+}
+
+/* 區塊標題 */
+.backend-block-title {
+  @apply flex justify-between items-center text-lg;
+}
+
+/* 區塊分隔線 */
+.backend-block-hr {
+  @apply my-2 border-gray-300;
+}
