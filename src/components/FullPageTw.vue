@@ -69,12 +69,12 @@ import 'vue3-carousel/dist/carousel.css'
 const HomeInfo = [
   {
     home_no: 1,
-    home_title: '以誠為本，以諾為策',
-    home_title_en: 'Founded on Honesty. Promise Strong Policy',
+    home_title: '在喵的陪伴下，享受生活的每一杯咖啡',
+    home_title_en: "Savor every cup of life's coffee in the company of meows.",
     home_txt:
-      '以永續經營為理念，承攬各大企業電力系統相關工程，以客戶需求為目標，秉持專業、優良的服務，積極完成客戶所託！',
+      '我們提供一個舒適、溫馨的環境為理念，專注於給予貓愛好者與他們的毛茸茸朋友們一個完美的相遇場所。我們以顧客和貓咪的需求為目標，秉持專業、親切的服務，積極實現每位訪客的美好體驗！',
     home_txt_en:
-      "With the concept of sustainable operation, we undertake various electrical system-related projects for large enterprises. Our goal is to meet customer demands and uphold professionalism and excellent service to deliver on our clients' entrusted projects actively."
+      'We are dedicated to providing a comfortable and warm environment, focusing on creating the perfect meeting place for cat lovers and their furry friends. Aiming to meet the needs of both customers and cats, we uphold professional and friendly service, actively working to ensure a delightful experience for every visitor!'
   }
 ]
 
@@ -83,22 +83,22 @@ const settingsBanner = reactive({
   snapAlign: 'center'
 })
 
-const settingsClient = reactive({
-  itemsToShow: 1,
-  snapAlign: 'center',
-  breakpoints: {
-    // 700px and up
-    414: {
-      itemsToShow: 3,
-      snapAlign: 'center'
-    },
-    // 1024 and up
-    1024: {
-      itemsToShow: 5,
-      snapAlign: 'center'
-    }
-  }
-})
+// const settingsClient = reactive({
+//   itemsToShow: 1,
+//   snapAlign: 'center',
+//   breakpoints: {
+//     // 700px and up
+//     414: {
+//       itemsToShow: 3,
+//       snapAlign: 'center'
+//     },
+//     // 1024 and up
+//     1024: {
+//       itemsToShow: 5,
+//       snapAlign: 'center'
+//     }
+//   }
+// })
 
 const slides = ref([
   '/img/HomeView/banner1.png',
@@ -107,20 +107,20 @@ const slides = ref([
   '/img/HomeView/banner4.png'
 ])
 
-const clientSlides = ref([
-  '/img/Client/Client_1.png',
-  '/img/Client/Client_2.png',
-  '/img/Client/Client_3.png',
-  '/img/Client/Client_4.png',
-  '/img/Client/Client_5.png',
-  '/img/Client/Client_6.png',
-  '/img/Client/Client_7.png',
-  '/img/Client/Client_8.png',
-  '/img/Client/Client_9.png',
-  '/img/Client/Client_10.png',
-  '/img/Client/Client_11.png',
-  '/img/Client/Client_12.png'
-])
+// const clientSlides = ref([
+//   '/img/Client/Client_1.png',
+//   '/img/Client/Client_2.png',
+//   '/img/Client/Client_3.png',
+//   '/img/Client/Client_4.png',
+//   '/img/Client/Client_5.png',
+//   '/img/Client/Client_6.png',
+//   '/img/Client/Client_7.png',
+//   '/img/Client/Client_8.png',
+//   '/img/Client/Client_9.png',
+//   '/img/Client/Client_10.png',
+//   '/img/Client/Client_11.png',
+//   '/img/Client/Client_12.png'
+// ])
 
 // 服務項目
 
@@ -165,7 +165,7 @@ const navigateToDetail = (serveNo) => {
           <div class="box-line"></div>
         </div>
         <!-- 文字 -->
-        <div class="text-blueLight">． CNETC</div>
+        <div class="text-blueLight">． Meow Planet Paradise</div>
       </div>
 
       <Pagination />
@@ -181,7 +181,7 @@ const navigateToDetail = (serveNo) => {
     <div class="my-section my-section-p">
       <!-- title -->
       <div class="page-title" style="margin-top: 40px">
-        <span class="page-title-txt">服務項目</span>
+        <span class="page-title-txt">店長貓貓們</span>
       </div>
 
       <!-- sec 1 -->
@@ -364,28 +364,6 @@ const navigateToDetail = (serveNo) => {
 
     <!-- <div class="my-section my-section-p bg-gray-400">第 6 節</div> -->
 
-    <!-- * 第 6 節 -->
-    <div class="my-section">
-      <div class="flex flex-col h-full overflow-y-auto">
-        <div class="grow">
-          <!-- title -->
-          <div class="page-title" style="margin-top: 100px">
-            <span class="page-title-txt">代表客戶</span>
-          </div>
-          <!-- 客戶圖片區 -->
-          <div
-            class="grid grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 xl:gap-16 px-20 lg:px-[120px] mb-[76px]"
-          >
-            <div class="col-span-1" v-for="(clientSlide, index) in clientSlides" :key="index">
-              <img :src="clientSlide" alt="" class="pic" />
-            </div>
-          </div>
-        </div>
-        <!-- Footer -->
-        <Footer class="hidden md:block" />
-      </div>
-    </div>
-
     <!-- ? 不知道為什麼要多一節才能吃到第六節 = = -->
     <div class="my-section">🫠</div>
   </div>
@@ -431,12 +409,12 @@ const navigateToDetail = (serveNo) => {
 
     <!-- * 代表客戶 -->
     <!-- title -->
-    <div class="page-title">
+    <!-- <div class="page-title">
       <span class="page-title-txt">代表客戶</span>
-    </div>
+    </div> -->
 
     <!-- * client 輪播圖 -->
-    <carousel
+    <!-- <carousel
       v-bind="settingsClient"
       :wrap-around="true"
       :autoplay="3000"
@@ -444,10 +422,10 @@ const navigateToDetail = (serveNo) => {
       class="carousel-client"
     >
       <slide v-for="(clientSlide, index) in clientSlides" :key="index" class="slide">
-        <!-- <div
+       <div
         class="carousel__item bg-pic"
         :style="{ backgroundImage: 'url(' + clientSlide + ')' }"
-      ></div> -->
+      ></div> 
         <div class="carousel__item">
           <img :src="clientSlide" alt="" class="w-full h-full" />
         </div>
@@ -457,7 +435,7 @@ const navigateToDetail = (serveNo) => {
         <Pagination />
         <Navigation />
       </template>
-    </carousel>
+    </carousel> -->
   </div>
 </template>
 
@@ -651,7 +629,7 @@ const navigateToDetail = (serveNo) => {
 
   // 右下小動畫
   .banner-animate-line {
-    @apply hidden md:flex items-center gap-2 absolute -right-[3%] xl:right-0 bottom-[7%] -rotate-90;
+    @apply hidden md:flex items-center gap-2 absolute -right-[8%] xl:-right-[5%] bottom-[13.5%] -rotate-90;
 
     .box {
       @apply w-16 h-1 relative overflow-hidden;
