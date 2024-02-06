@@ -16,9 +16,9 @@ const contactInfo = ref({
   contact_title_en: 'Contact Us',
   contact_title_pic: '/img/ContactView/banner.png',
   contact_txt_en:
-    'If you need any assistance, please feel free to leave your contact information through the form, and we will get in touch with you as soon as possible. Thank you.',
+    'If you have any suggestions or cooperation, please leave your contact information through the form and we will contact you as soon as possible. Thank you.',
   contact_maplink:
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.061418876145!2d120.33262997554037!3d22.614181531444594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04aed348af67%3A0x495995d68d25d984!2z6Kqg6Ku-5bel56iL5oqA6KGT6IKh5Lu95pyJ6ZmQ5YWs5Y-4!5e0!3m2!1szh-TW!2stw!4v1702365377524!5m2!1szh-TW!2stw',
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11972.792056256649!2d141.40933777014752!3d38.29943884234485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f89c00d07d663e7%3A0xd985f22a28c60972!2z55Sw5Luj5bO2!5e0!3m2!1szh-TW!2stw!4v1707201587088!5m2!1szh-TW!2stw',
   contact_pop_title_en:
     'The form is successfully sent.We will call and contact you within 24 hours!',
   contact_pop_txt_en: 'For urgent matters, please call 07-7223777'
@@ -41,9 +41,9 @@ const feedbackInfo = ref({
 const companyInfo = [
   {
     company_no: 1,
-    company_tel: '07-7223777',
-    company_fax: '07-7229777',
-    company_email: 'cnetcsales@mx.cnetc.tw'
+    company_tel: '07-777777777',
+    company_fax: '07-777777777',
+    company_email: 'meowmeow@gmail.com.tw'
   }
 ]
 
@@ -254,7 +254,7 @@ const submitForm = () => {
               </div>
             </div>
 
-            <input
+            <!-- <input
               v-model="feedbackInfo.feedback_company"
               placeholder="*Company"
               class="input-txt"
@@ -266,7 +266,7 @@ const submitForm = () => {
             }}</span>
             <span v-if="errorMessages.company.minLength" class="error-message">{{
               errorMessages.company.minLength
-            }}</span>
+            }}</span> -->
 
             <input
               v-model="feedbackInfo.feedback_email"
@@ -437,27 +437,31 @@ const submitForm = () => {
 
   .form {
     .input-txt {
-      @apply text-sm w-full h-[44px] rounded-md mt-4 pl-2 border border-gray-300 relative;
+      @apply text-sm w-full h-[44px] rounded-md mt-4 pl-2 relative;
       background-color: transparent;
+      border: var(--color-blue) 1px solid;
 
       &:focus {
-        border-color: var(--color-blue);
+        // border-color: var(--color-blue);
         outline: none; // 去除預設的樣式
+        box-shadow: #eaa86ba7 0 0 5px 1px;
       }
     }
     .textarea-txt {
-      @apply text-sm w-full h-[133px] rounded-md mt-4 pl-2 pt-3 border border-gray-300 bg-transparent relative;
+      @apply text-sm w-full min-h-[133px] rounded-md mt-4 pl-2 py-3 bg-transparent relative;
+      border: var(--color-blue) 1px solid;
       resize: none;
 
       &:focus {
-        border-color: var(--color-blue);
+        // border-color: var(--color-blue);
         outline: none; // 去除預設的樣式
+        box-shadow: #eaa86ba7 0 0 5px 1px;
       }
     }
   }
 }
 .button {
-  @apply w-full h-[40px] bg-transparent rounded-[20px] border-2 text-base font-semibold mt-4 tracking-widest lg:w-auto lg:h-auto lg:px-9 lg:py-2;
+  @apply w-full h-[40px] bg-transparent rounded-[20px] border-2 text-base font-semibold mt-4 tracking-widest lg:w-auto lg:h-auto lg:px-9 lg:py-2 transform duration-300;
   border-color: var(--color-blue);
   color: var(--color-blue);
 

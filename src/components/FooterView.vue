@@ -10,16 +10,18 @@ import { useLanguageStore } from '@/stores/languageStore'
 const companyInfo = [
   {
     company_no: 1,
-    company_name_tw: '誠諾工程技術股份有限公司',
-    company_name_en: 'CHENG-NUO ENGINEERING TECHNOLOGY CO., LTD.',
-    company_tel: '07-7223777',
-    company_fax: '07-7229777',
-    company_add: '高雄市鳳山區武林路51號',
-    company_add_en: 'No. 51, Wulin Rd., Fengshan Dist., Kaohsiung City , Taiwan (R.O.C.)',
-    company_email: 'cnetcsales@mx.cnetc.tw',
+    company_name_tw: '喵星人樂園',
+    company_name_en: 'Meow Planet Paradise',
+    company_tel: '07-777777777',
+    company_fax: '07-777777777',
+    company_add: '貓貓鎮鎮中路51號',
+    company_add_en: 'No. 51, Zhenzhong Road, Maomao Town',
+    company_email: 'meowmeow@gmail.com.tw',
     company_joblink: 'https://www.1111.com.tw/corp/51350659/#c4',
-    company_logo_pic: '圖片.png',
-    company_footer_pic: '/img/CompanyData/company_footer_pic.svg'
+    company_logo_pic: '/img/CompanyData/logo.svg',
+    company_footer_pic: '/img/Icon/cat.svg',
+    company_datetime: '112/01/02 13:22:51',
+    staff_no: 1
   }
 ]
 
@@ -57,28 +59,28 @@ watch(
         <div class="flex">
           <div class="flex flex-col gap-5 pr-12 sm:pr-20 lg:px-20 lg:border-l border-neutral-600">
             <RouterLink to="/" class="link-txt">服務項目</RouterLink>
-            <RouterLink to="/about" class="link-txt">關於誠諾</RouterLink>
-            <RouterLink to="/license" class="link-txt">專業證照</RouterLink>
-            <RouterLink to="/organize" class="link-txt">組織架構</RouterLink>
+            <RouterLink to="/about" class="link-txt">關於我們</RouterLink>
+            <RouterLink to="/business" class="link-txt">營業實績 </RouterLink>
+            <!-- <RouterLink to="/license" class="link-txt">專業證照</RouterLink> -->
+            <!-- <RouterLink to="/organize" class="link-txt">組織架構</RouterLink> -->
           </div>
 
           <div
             class="flex flex-col gap-5 pl-12 sm:pl-20 lg:px-20 border-l lg:border-r border-neutral-600"
           >
-            <RouterLink to="/business" class="link-txt">營業實績 </RouterLink>
             <RouterLink to="/news" class="link-txt">最新消息</RouterLink>
             <RouterLink to="/contact" class="link-txt">聯絡我們</RouterLink>
-            <a :href="companyInfo[0].company_joblink" target="_blank" class="link-txt">人力招募</a>
+            <!-- <a :href="companyInfo[0].company_joblink" target="_blank" class="link-txt">人力招募</a> -->
           </div>
         </div>
 
         <!-- 公司 data -->
-        <div class="flex flex-col gap-8 lg:gap-5 lg:ml-20">
-          <div class="flex flex-col sm:flex-row gap-3 items-left sm:items-center">
-            <div class="w-[110px] h-[30.6px]">
+        <div class="flex flex-col gap-8 lg:gap-3 lg:ml-20">
+          <div class="flex gap-3 items-center">
+            <div class="w-14 sm:w-[60px]">
               <img class="pic" :src="companyInfo[0].company_footer_pic" alt="company_footer_pic" />
             </div>
-            <div class="text-xl font-medium">{{ companyInfo[0].company_name_tw }}</div>
+            <div class="text-2xl font-medium">{{ companyInfo[0].company_name_tw }}</div>
           </div>
 
           <!-- 聯絡資訊 & 切換語言 -->
@@ -126,26 +128,26 @@ watch(
           >
             <RouterLink to="/En" class="link-txt">Our Services</RouterLink>
             <RouterLink to="/aboutEn" class="link-txt">About CHENG-NUO</RouterLink>
-            <RouterLink to="/licenseEn" class="link-txt">Professional license</RouterLink>
-            <RouterLink to="/organizeEn" class="link-txt">Capital structure</RouterLink>
+            <RouterLink to="/businessEn" class="link-txt">Operational Achievements </RouterLink>
+            <!-- <RouterLink to="/licenseEn" class="link-txt">Professional license</RouterLink> -->
+            <!-- <RouterLink to="/organizeEn" class="link-txt">Capital structure</RouterLink> -->
           </div>
 
           <div
             class="flex flex-col gap-5 sm:pl-10 md:pl-20 xl:px-20 sm:border-l xl:border-r border-neutral-600"
           >
-            <RouterLink to="/businessEn" class="link-txt">Operational Achievements </RouterLink>
             <RouterLink to="/newsEn" class="link-txt">News & Events</RouterLink>
             <RouterLink to="/contactEn" class="link-txt">Contact Us</RouterLink>
           </div>
         </div>
 
         <!-- 公司 data -->
-        <div class="flex flex-col gap-8 xl:gap-5 xl:ml-20 px-10 md:px-20 lg:px-52 xl:px-0">
-          <div class="flex flex-col gap-3 items-left">
-            <div class="w-[110px] h-[30.6px]">
+        <div class="flex flex-col gap-8 xl:gap-2 xl:ml-20 px-10 md:px-20 lg:px-52 xl:px-0">
+          <div class="flex gap-3 items-center">
+            <div class="w-14 sm:w-[60px]">
               <img class="pic" :src="companyInfo[0].company_footer_pic" alt="company_footer_pic" />
             </div>
-            <div class="text-xl font-medium">{{ companyInfo[0].company_name_en }}</div>
+            <div class="text-2xl font-medium">{{ companyInfo[0].company_name_en }}</div>
           </div>
 
           <!-- 聯絡資訊 & 切換語言 -->
@@ -192,9 +194,9 @@ watch(
 
     <!-- 版權 -->
     <div class="copyright">
-      Copyright © 2023
+      Copyright © 2024
       <!-- <span class="text-blueLight font-medium"></span> -->
-      CNETC. All Rights Reserved
+      Yi Shan. All Rights Reserved
     </div>
   </footer>
 </template>

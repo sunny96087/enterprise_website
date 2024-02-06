@@ -14,11 +14,12 @@
 
 :root {
   --color-text: #1e1e1e;
-  --color-background: #f8fdff;
-  --color-blueLight: #d0dffb;
-  --color-blue: #0b75b5;
+  --color-background: #faf3ec;
+  --color-blueLight: #f5d0ad;
+  --color-blue: #eaa86b;
   --color-blueDark: #1a394c;
   --color-red: #eb4928;
+  --color-green: #57a6d0;
 
   /*  */
   --vc-pgn-width: 100px;

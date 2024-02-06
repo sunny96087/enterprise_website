@@ -59,7 +59,7 @@
 /* blue-line */
 .blue-line {
   @apply w-px h-full;
-  background: rgba(11, 117, 181, 0.8);
+  background: var(--color-blue);
 }
 
 /* 圓形按鈕 */
@@ -201,7 +201,9 @@
     content: '';
     right: 102%;
     top: 0;
-    background-image: url('/img/Icon/blue-line.svg');
+    background-image: url('/img/Icon/foot.png');
+    background-size: cover;
+
   }
 }
 

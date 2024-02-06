@@ -10,16 +10,16 @@ import { useLanguageStore } from '@/stores/languageStore'
 const companyInfo = [
   {
     company_no: 1,
-    company_name_tw: '誠諾工程技術股份有限公司',
-    company_name_en: 'CHENG-NUO ENGINEERING TECHNOLOGY CO., LTD.',
-    company_tel: '07-7223777',
-    company_fax: '07-7229777',
-    company_add: '高雄市鳳山區武林路51號',
-    company_add_en: 'No. 51, Wulin Rd., Fengshan Dist., Kaohsiung City , Taiwan (R.O.C.)',
-    company_email: 'cnetcsales@mx.cnetc.tw',
+    company_name_tw: '喵星人樂園',
+    company_name_en: 'Meow Planet Paradise',
+    company_tel: '07-777777777',
+    company_fax: '07-777777777',
+    company_add: '貓貓鎮鎮中路51號',
+    company_add_en: 'No. 51, Zhenzhong Road, Maomao Town',
+    company_email: 'meowmeow@gmail.com.tw',
     company_joblink: 'https://www.1111.com.tw/corp/51350659/#c4',
     company_logo_pic: '/img/CompanyData/logo.svg',
-    company_footer_pic: '/img/CompanyData/company_footer_pic.svg',
+    company_footer_pic: '/img/CompanyData/logo.svg',
     company_datetime: '112/01/02 13:22:51',
     staff_no: 1
   }
@@ -102,20 +102,22 @@ watch(
       <div class="flex justify-end sm:px-0 pt-10 sm:pt-0">
         <!-- company_logo_pic -->
         <!-- <img src="/img/CompanyData/logo_companyname.svg" alt="logo_companyname" /> -->
-        <div class="inline-flex flex-col gap-3 items-center">
-          <img src="/img/CompanyData/logo.svg" class="w-[215px] h-[52px]" alt="cnetc_logo" />
-          <div class="inline-flex flex-col items-center">
+        <div class="inline-flex flex-col gap-3 items-center w-[50vw] sm:w-4/5 lg:w-1/2">
+
+          <img src="/img/CompanyData/logo.svg" class="w-full" alt="cnetc_logo" />
+
+          <!-- <div class="inline-flex flex-col items-center">
             <h1
-              class="text-sky-700 text-[20px] sm:text-[20px] md:text-[24px] lg:text-[32px] font-bold"
+              class="text-blue text-[20px] sm:text-[20px] md:text-[24px] lg:text-[32px] font-bold"
             >
               {{ companyInfo[0].company_name_tw }}
             </h1>
             <h1
-              class="text-sky-700 text-[10px] sm:text-[14px] lg:text-base font-medium text-center"
+              class="text-blue text-[10px] sm:text-[14px] lg:text-base font-medium text-center"
             >
               {{ companyInfo[0].company_name_en }}
             </h1>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -148,26 +150,10 @@ watch(
         </RouterLink>
 
         <!-- about -->
-        <div class="cursor-pointer triangle-hover custom-txt-gap4" @click="aboutList = !aboutList">
-          <span class="custom-triangle block">▶</span>關於誠諾
-        </div>
-
-        <div class="inline-flex flex-col gap-5 items-left text-xl ml-4 sm:ml-8" v-show="aboutList">
-          <RouterLink to="/about" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
-            <span class="custom-triangle block">▶</span>
-            <span :class="{ 'link-active': isActive }" class="font-bold">關於誠諾</span>
-          </RouterLink>
-
-          <RouterLink to="/license" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
-            <span class="custom-triangle block">▶</span>
-            <span :class="{ 'link-active': isActive }" class="font-bold">專業證照</span>
-          </RouterLink>
-
-          <RouterLink to="/organize" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
-            <span class="custom-triangle block">▶</span>
-            <span :class="{ 'link-active': isActive }" class="font-bold">組織架構</span>
-          </RouterLink>
-        </div>
+        <RouterLink to="/about" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
+          <span class="custom-triangle block">▶</span>
+          <span :class="{ 'link-active': isActive }" class="font-bold">關於我們</span>
+        </RouterLink>
 
         <RouterLink to="/business" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
           <span class="custom-triangle block">▶</span>
@@ -181,18 +167,20 @@ watch(
           <span class="custom-triangle block">▶</span>
           <span :class="{ 'link-active': isActive }" class="font-bold">聯絡我們</span>
         </RouterLink>
-        <a href="https://www.1111.com.tw/corp/51350659/#c4" target="_blank">
+
+        <!-- <a href="https://www.1111.com.tw/corp/51350659/#c4" target="_blank">
           <div class="cursor-pointer triangle-hover custom-txt-gap4">
             <span class="custom-triangle block">▶</span>人力招募
           </div>
-        </a>
+        </a> -->
+
         <div class="cursor-pointer triangle-hover custom-txt-gap4" @click="areaList = !areaList">
-          <span class="custom-triangle block">▶</span>企業專區
+          <span class="custom-triangle block">▶</span>管理專區
         </div>
 
         <!-- 企業專區內選項 -->
         <div class="inline-flex flex-col gap-5 items-left text-xl ml-4 sm:ml-8" v-show="areaList">
-          <a href="https://www.cnetc.tw/admin/login" target="_blank">
+          <!-- <a href="https://www.cnetc.tw/admin/login" target="_blank">
             <div class="cursor-pointer triangle-hover custom-txt-gap4">
               <span class="custom-triangle block">▶</span>員工專區
             </div>
@@ -202,7 +190,7 @@ watch(
             <div class="cursor-pointer triangle-hover custom-txt-gap4">
               <span class="custom-triangle block">▶</span>鵬鼎專區
             </div>
-          </a>
+          </a> -->
 
           <RouterLink to="/backendLogin" class="triangle-hover custom-txt-gap4">
             <span class="custom-triangle block">▶</span>
@@ -237,26 +225,10 @@ watch(
         </RouterLink>
 
         <!-- about -->
-        <div class="cursor-pointer triangle-hover custom-txt-gap4" @click="aboutList = !aboutList">
-          <span class="custom-triangle block">▶</span>About CHENG-NUO
-        </div>
-
-        <div class="inline-flex flex-col gap-5 items-left text-xl ml-4 sm:ml-8" v-show="aboutList">
-          <RouterLink to="/aboutEn" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
-            <span class="custom-triangle block">▶</span>
-            <span :class="{ 'link-active': isActive }" class="font-bold">About CHENG-NUO</span>
-          </RouterLink>
-
-          <RouterLink to="/licenseEn" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
-            <span class="custom-triangle block">▶</span>
-            <span :class="{ 'link-active': isActive }" class="font-bold">Professional license</span>
-          </RouterLink>
-
-          <RouterLink to="/organizeEn" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
-            <span class="custom-triangle block">▶</span>
-            <span :class="{ 'link-active': isActive }" class="font-bold">Capital structure</span>
-          </RouterLink>
-        </div>
+        <RouterLink to="/aboutEn" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
+          <span class="custom-triangle block">▶</span>
+          <span :class="{ 'link-active': isActive }" class="font-bold">About us</span>
+        </RouterLink>
 
         <RouterLink to="/businessEn" v-slot="{ isActive }" class="triangle-hover custom-txt-gap4">
           <span class="custom-triangle block">▶</span>

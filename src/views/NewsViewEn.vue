@@ -13,21 +13,20 @@ const news = reactive([
   {
     article_no: 1,
     article_title_en:
-      '(Press Report) CNETC Received the 3rd "Outstanding Achievement Award for Promoting ' +
-      'Employment of Middle-aged and Elderly Workers"',
+      '【Gastronomy Feature】Meow Meow Café: Savoring Coffee in the World of Whiskers',
     article_pic: '/img/NewsView/news1.png',
     article_txt_en:
-      'In response to the needs of middle-aged and elderly employees, independent development of mapping systems and digital tools has been undertaken. These tools assist middle-aged and elderly workers in finding and utilizing information through a Young-Silver Generation Mutual Learning Program. Additionally, guidance is provided for them to obtain professional certifications, offering a systematic career advancement path.',
-    article_date: '2023/01/01',
-    article_link: 'https://money.udn.com/money/story/11799/7378286'
+      "Meow Meow Café stood out in this year's 'International Cuisine and Flavors Exhibition', clinching the 'Award for Best Creative Gastronomy'. This unique café has captivated the hearts of judges by merging two passions of cat enthusiasts: coffee and felines. The café was praised for not only offering top-tier coffee but also for creating a harmonious space where customers can enjoy the company of cats while indulging in delectable treats.",
+    article_date: 'January 1, 2024',
+    article_link: ' '
   },
   {
     article_no: 2,
-    article_title_en: '(Press Report) Minister of Labor, Ming-Chun Hsu, Visits CNETC',
+    article_title_en: '【Community Spotlight】Meow Meow Café: A Haven for Stray Cats',
     article_pic: '/img/NewsView/news2.png',
     article_txt_en:
-      '" CNETC stood out in the ""Selection of Outstanding Achievements in Promoting Employment of Middle-aged and Elderly Workers and Generational Cooperation"" in 2022, winning the ""Outstanding Achievement Award for Promoting Employment of Middle-aged and Elderly Workers."" On August 16 of this year, the Minister visited CNETC, personally experiencing the working environment of middle-aged and elderly employees, and showing concern for the work conditions of workers from the silver generation."',
-    article_date: '2023/12/31',
+      "Meow Meow Café is more than a spot for quality coffee and pastries; it is a warm home showing deep care for the community's stray cats. This year, the café launched a 'Stray Cat Sanctuary Program', providing a safe haven for these four-legged friends and partnering with local animal welfare organizations to find them permanent homes. Meow Meow Café's initiative has received wide acclaim across the community, setting a benchmark for the industry.",
+    article_date: 'December 31, 2023',
     article_link: 'https://money.udn.com/money/story/11799/7378286'
   }
 ])
