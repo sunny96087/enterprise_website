@@ -66,6 +66,7 @@ watch(
 )
 </script>
 
+
 <template>
   <main class="flex px-5 sm:px-10 py-4 sm:py-6 items-center justify-between">
     <RouterLink to="/" class="logo">
