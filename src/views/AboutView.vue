@@ -1,4 +1,5 @@
 <script setup>
+// test
 const aboutInfo = [
   {
     about_no: 1,
