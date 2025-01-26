@@ -7,6 +7,9 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import i18n from './i18n'
+
+
 
 // import fullpage
 import 'fullpage.js/dist/fullpage.min.css' // 引入 fullpage.js 的 CSS
@@ -19,6 +22,7 @@ app.use(pinia)
 
 // app.use(createPinia())
 app.use(router)
+app.use(i18n)
 
 // 使 textarea 自己長高
 const adjustHeight = (el) => {
