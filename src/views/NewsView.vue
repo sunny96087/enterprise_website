@@ -37,6 +37,8 @@ const news = reactive([
 const redirectToArticle = (link) => {
   window.open(link, '_blank')
 }
+
+// test 123
 </script>
 
 <template>
