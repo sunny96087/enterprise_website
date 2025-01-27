@@ -8,6 +8,9 @@ import { useI18n } from 'vue-i18n'
 import fullpage from 'fullpage.js'
 import Footer from './FooterView.vue'
 
+// import fullpage
+import 'fullpage.js/dist/fullpage.min.css' // 引入 fullpage.js 的 CSS
+
 // 初始化 i18n
 const { t } = useI18n()
 
@@ -58,13 +61,13 @@ function destroyFullpage() {
       fullPageWrapper.style.transform = ''
       fullPageWrapper.style.transition = ''
     }
-    
+
     // 銷毀實例
     fullpageApi.value.destroy('all')
     fullpageApi.value = null
-    
+
     // 移除所有 fullpage 相關的類
-    document.querySelectorAll('.fp-enabled, .fp-viewing, .fp-responsive').forEach(el => {
+    document.querySelectorAll('.fp-enabled, .fp-viewing, .fp-responsive').forEach((el) => {
       el.classList.remove('fp-enabled', 'fp-viewing', 'fp-responsive')
     })
   }
