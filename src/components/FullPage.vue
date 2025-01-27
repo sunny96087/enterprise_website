@@ -50,8 +50,23 @@ function initFullpage() {
 // 銷毀 fullpage.js 實例
 function destroyFullpage() {
   if (fullpageApi.value) {
+    // 移除所有 fullpage 相關的類和樣式
+    document.documentElement.style.overflow = ''
+    document.body.style.overflow = ''
+    const fullPageWrapper = document.querySelector('#fullpage')
+    if (fullPageWrapper) {
+      fullPageWrapper.style.transform = ''
+      fullPageWrapper.style.transition = ''
+    }
+    
+    // 銷毀實例
     fullpageApi.value.destroy('all')
     fullpageApi.value = null
+    
+    // 移除所有 fullpage 相關的類
+    document.querySelectorAll('.fp-enabled, .fp-viewing, .fp-responsive').forEach(el => {
+      el.classList.remove('fp-enabled', 'fp-viewing', 'fp-responsive')
+    })
   }
 }
 
@@ -86,6 +101,9 @@ onMounted(() => {
 onBeforeUnmount(() => {
   destroyFullpage()
   window.removeEventListener('resize', checkFullpageInit)
+  // 確保清理所有全局樣式
+  document.documentElement.style.overflow = ''
+  document.body.style.overflow = ''
 })
 
 // * banner 輪播圖

@@ -47,7 +47,7 @@ watch(locale, (newLocale) => {
   <div class="banner">
     <div
       class="bg-pic"
-      :style="{ backgroundImage: 'url(' + businessInfo[0].business_title_pic + ')' }"
+      :style="{ backgroundImage: 'url(/img/BusinessView/banner.png)' }"
     ></div>
     <div class="banner-overlay"></div>
     <div class="banner-title first-letter-underline">{{ t('BusinessView.business_title') }}</div>
