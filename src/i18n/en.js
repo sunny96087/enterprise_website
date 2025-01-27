@@ -2,7 +2,7 @@ export default {
   NavBar: {
     service: 'Service',
     about: 'About',
-    business: 'Business',
+    business: 'Business Information',
     news: 'Latest News',
     contact: 'Contact Us',
     manage: 'Management Area',
@@ -16,7 +16,7 @@ export default {
     home_title: "Savor every cup of life's coffee in the company of meows.",
     home_txt:
       'We are dedicated to providing a comfortable and warm environment, focusing on creating the perfect meeting place for cat lovers and their furry friends. Aiming to meet the needs of both customers and cats, we uphold professional and friendly service, actively working to ensure a delightful experience for every visitor!',
-    home_title_cat: "The Cat Bosses"
+    home_title_cat: 'The Cat Bosses'
   },
   CatInfo: {
     cat1: {
@@ -96,5 +96,37 @@ export default {
       favorite:
         'Ash loves to overlook the entire café from the highest point. He enjoys the feeling of being up high, as if he could guard this little world. In addition to this, Ash likes to sit quietly with customers, providing a special kind of comfort and companionship, making people feel exceptionally warm and secure.'
     }
+  },
+  ServiceView: {
+    back: 'Back'
+  },
+  AboutView: {
+    about_title: 'About Us',
+    about_block1_txt1:
+      'Welcome to Meow Café, our little paradise established in 2006. More than just a café, we are a cat haven in the heart of the city. We are dedicated to providing a relaxing and comfortable space for every cat lover, where you can enjoy our carefully crafted coffee and homemade pastries.',
+    about_block1_txt2:
+      "Our feline friends are cared for by a professional team, ensuring their health and happiness. We also prioritize our customers' experience, offering various interactive activities that help you build special bonds with our cats. Here, every corner is filled with cat paw prints and laughter.",
+    about_block2_txt1:
+      "Our team believes that Meow Café is more than just a business space - it's a place that brings happiness to people. We encourage our staff to share their love for cats and coffee, passing this passion on to every customer.",
+    about_block2_txt2:
+      "Meow Café is more like a big family. We care not only about our employees' professional growth but also their personal well-being. We organize regular gatherings and trips, allowing our staff and their families to experience the warmth and care of our team.",
+    trend_title: 'Growth Trend',
+    trend_txt:
+      '"Sincere service and keeping promises" is our business philosophy at Meow Café. We view our customers and partners as precious members of our café family. This commitment to quality and service has been our driving force for growth, and over the past three years, we have seen significant increases in our business. This not only reflects the high recognition we\'ve received from the cat-loving community but also shows that our commitment to providing unique coffee experiences and joyful cat interactions has been well-received by the market.',
+    trend_cat_title: 'Cat Growth Trend',
+    trend_cat_unit: 'Unit: Cat',
+    trend_team_title: 'Team Growth Trend',
+    trend_team_unit: 'Unit: Person'
+  },
+  BusinessView: {
+    business_title: 'Branch Information',
+    business_txt:
+      'Our cat cafes are located all over Taiwan, with each branch having its own unique cat companions. From Taipei to Kaohsiung, each branch offers a warm and comfortable environment, allowing you to spend time with our adorable cats. Each branch adheres to the "cat priority, service first" philosophy, providing the best care for cats while creating unforgettable experiences for customers.',
+    all_stores: 'All Locations',
+    cat_cafe: 'Cat Cafés',
+    pet_friendly: 'Pet-Friendly Restaurants',
+    cat_shelter: 'Cat Shelters',
+    cat_salon: 'Cat Grooming Services',
+    pet_shop: 'Pet Supplies Stores',
   }
 }

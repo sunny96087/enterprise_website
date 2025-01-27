@@ -7,9 +7,11 @@ import {
   filterMarkers,
   resetMarkers
 } from '../js/leaflet-map'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { markers } from '../js/leaflet-marker'
+import { useI18n } from 'vue-i18n'
 
+const { t, locale } = useI18n()
 //設定banner
 const businessInfo = [
   {
@@ -22,10 +24,21 @@ const businessInfo = [
 ]
 
 let map = null
+const currentFilter = ref('')
 
 onMounted(() => {
   map = initializeMap()
-  createMarkersAndPopups(markers) //創建座標及彈窗
+  createMarkersAndPopups(markers, locale.value)
+})
+
+const handleFilter = (option) => {
+  currentFilter.value = option
+  filterMarkers(option, locale.value)
+}
+
+// 監聽語言變化
+watch(locale, (newLocale) => {
+  filterMarkers(currentFilter.value, newLocale)
 })
 </script>
 
@@ -37,47 +50,70 @@ onMounted(() => {
       :style="{ backgroundImage: 'url(' + businessInfo[0].business_title_pic + ')' }"
     ></div>
     <div class="banner-overlay"></div>
-    <div class="banner-title first-letter-underline">{{ businessInfo[0].business_title }}</div>
+    <div class="banner-title first-letter-underline">{{ t('BusinessView.business_title') }}</div>
   </div>
 
   <!-- 營業實績 title -->
   <div class="page-title">
-    <span class="page-title-txt">{{ businessInfo[0].business_title }}</span>
+    <span class="page-title-txt">{{ t('BusinessView.business_title') }}</span>
   </div>
 
   <div class="page-content">
     <!-- 營業實績 內容 -->
-    <div class="lg:px-20 mb-5 lg:mb-10">{{ businessInfo[0].business_txt }}</div>
+    <div class="lg:px-20 mb-5 lg:mb-10">{{ t('BusinessView.business_txt') }}</div>
 
     <div class="content-wrapper">
       <!-- 螢幕1024以上的下拉選單 -->
       <div class="button-wrapper">
         <div class="button-container" v-if="windowWidth > 1024">
-          <button @click="filterMarkers('')">全部工程</button>
-          <button @click="filterMarkers('保護電驛工程')">保護電驛工程</button>
-          <button @click="filterMarkers('發電機機組保護電驛工程')">發電機機組保護電驛</button>
-          <button @click="filterMarkers('電力監控系統')">電力監控系統</button>
-          <button @click="filterMarkers('RCP設計組裝')">RCP設計組裝</button>
-          <button @click="filterMarkers('特高壓及高壓GIS安裝測試維護保養')">特高壓及高壓GIS</button>
-          <button @click="filterMarkers('電力電纜安裝工程')">電力電纜安裝工程</button>
-          <button @click="filterMarkers('變電站統包工程')">變電站統包工程</button>
+          <button @click="handleFilter('')" :class="{ 'button-txt-focus': currentFilter === '' }">
+            {{ t('BusinessView.all_stores') }}
+          </button>
+          <button
+            @click="handleFilter('貓咪主題')"
+            :class="{ 'button-txt-focus': currentFilter === '貓咪主題' }"
+          >
+            {{ t('BusinessView.cat_cafe') }}
+          </button>
+          <button
+            @click="handleFilter('寵物友善')"
+            :class="{ 'button-txt-focus': currentFilter === '寵物友善' }"
+          >
+            {{ t('BusinessView.pet_friendly') }}
+          </button>
+          <button
+            @click="handleFilter('貓咪收容')"
+            :class="{ 'button-txt-focus': currentFilter === '貓咪收容' }"
+          >
+            {{ t('BusinessView.cat_shelter') }}
+          </button>
+          <button
+            @click="handleFilter('貓咪美容')"
+            :class="{ 'button-txt-focus': currentFilter === '貓咪美容' }"
+          >
+            {{ t('BusinessView.cat_salon') }}
+          </button>
+          <button
+            @click="handleFilter('寵物用品')"
+            :class="{ 'button-txt-focus': currentFilter === '寵物用品' }"
+          >
+            {{ t('BusinessView.pet_shop') }}
+          </button>
         </div>
 
         <div v-else>
           <!-- 螢幕1024以下的下拉選單 -->
           <select
             v-model="selectedOption"
-            @change="filterMarkers(selectedOption)"
+            @change="handleFilter(selectedOption)"
             class="dropdown-menu"
           >
-            <option value="">全部工程</option>
-            <option value="保護電驛工程">保護電驛工程</option>
-            <option value="發電機機組保護電驛工程">發電機機組保護電驛</option>
-            <option value="電力監控系統">電力監控系統</option>
-            <option value="RCP設計組裝">RCP設計組裝</option>
-            <option value="特高壓及高壓GIS安裝測試維護保養">特高壓及高壓GIS</option>
-            <option value="電力電纜安裝工程">電力電纜安裝工程</option>
-            <option value="變電站統包工程">變電站統包工程</option>
+            <option value="">{{ t('BusinessView.all_stores') }}</option>
+            <option value="貓咪主題">{{ t('BusinessView.cat_cafe') }}</option>
+            <option value="寵物友善">{{ t('BusinessView.pet_friendly') }}</option>
+            <option value="貓咪收容">{{ t('BusinessView.cat_shelter') }}</option>
+            <option value="貓咪美容">{{ t('BusinessView.cat_salon') }}</option>
+            <option value="寵物用品">{{ t('BusinessView.pet_shop') }}</option>
           </select>
         </div>
       </div>
@@ -93,7 +129,7 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
-      selectedOption: '' // 新增一個選項來儲存下拉選單的值
+      selectedOption: ''
     }
   },
   mounted() {
@@ -102,15 +138,11 @@ export default {
   methods: {
     handleResize() {
       this.windowWidth = window.innerWidth
-    },
-    filterMarkers(option) {
-      // 實作過濾標記的邏輯
     }
   },
   watch: {
     windowWidth(newWidth) {
       if (newWidth <= 1024) {
-        // 螢幕小於等於1024，初始化下拉選單的值
         this.selectedOption = ''
       }
     }
@@ -121,7 +153,7 @@ export default {
 <style scoped>
 /* 設置地圖高度 */
 #map {
-  @apply h-[800px] w-[70%] z-0 rounded-xl  border-2 -ml-20 md:border-4;
+  @apply h-[600px] w-[70%] z-0 rounded-xl  border-2 -ml-20 md:border-4;
   border-color: var(--color-blue);
   float: right;
   box-shadow: 3px 3px 3.6px 0 rgba(0, 0, 0, 0.2); /* 右和下陰影 */
@@ -134,7 +166,7 @@ export default {
 .button-wrapper {
   @apply border-2 rounded-xl w-[20%] h-[100%] inline-block z-10 mt-6 py-3;
   border-color: var(--color-blue);
-  background-color: rgba(167, 204, 241, 0.6);
+  background-color: rgba(241, 209, 167, 0.6);
   backdrop-filter: blur(5px); /* 毛玻璃模糊效果 */
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.2); /* 右和下陰影 */
 }
@@ -144,13 +176,15 @@ export default {
 }
 
 .button-container button {
-  @apply px-10 py-3  text-xl  text-left;
-  transition: font-weight 0.3s;
+  @apply px-10 py-3 text-xl text-left transition-all duration-300 hover:font-black;
 }
 
-.button-container button:hover,
-.button-container button:focus {
+.button-txt-focus {
   @apply font-black;
+}
+
+select:focus-visible {
+  outline: transparent;
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1440px) {
@@ -161,7 +195,7 @@ export default {
 
 @media screen and (max-width: 1024px) {
   #map {
-    @apply w-full h-[800px] my-0 mx-auto;
+    @apply w-full h-[500px] my-0 mx-auto;
     float: none;
   }
   .content-wrapper {

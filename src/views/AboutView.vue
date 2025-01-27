@@ -1,4 +1,8 @@
 <script setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 // test
 const aboutInfo = [
   {
@@ -125,12 +129,12 @@ onMounted(() => {
         :style="{ backgroundImage: 'url(' + aboutInfo[0].about_title_pic + ')' }"
       ></div>
       <div class="banner-overlay"></div>
-      <div class="banner-title first-letter-underline">{{ aboutInfo[0].about_title }}</div>
+      <div class="banner-title first-letter-underline">{{ t('AboutView.about_title') }}</div>
     </div>
 
     <!-- title + animate -->
     <div class="page-title animate__animated animate__flipInX">
-      <span class="page-title-txt">{{ aboutInfo[0].about_title }}</span>
+      <span class="page-title-txt">{{ t('AboutView.about_title') }}</span>
     </div>
 
     <div class="page-content">
@@ -146,8 +150,8 @@ onMounted(() => {
 
         <!-- txt + animate -->
         <div class="block-txt block1-txt" data-aos="fade-right">
-          <div class="txt1">{{ aboutInfo[0].about_block1_txt1 }}</div>
-          <div class="txt1">{{ aboutInfo[0].about_block1_txt2 }}</div>
+          <div class="txt1">{{ t('AboutView.about_block1_txt1') }}</div>
+          <div class="txt1">{{ t('AboutView.about_block1_txt2') }}</div>
         </div>
       </div>
 
@@ -163,35 +167,35 @@ onMounted(() => {
 
         <!-- txt + animate -->
         <div class="block-txt block2-txt" data-aos="fade-left">
-          <div class="txt1">{{ aboutInfo[0].about_block2_txt1 }}</div>
-          <div class="txt1">{{ aboutInfo[0].about_block2_txt2 }}</div>
+          <div class="txt1">{{ t('AboutView.about_block2_txt1') }}</div>
+          <div class="txt1">{{ t('AboutView.about_block2_txt2') }}</div>
         </div>
       </div>
 
       <!-- 成長趨勢 title + animate -->
       <div class="page-title" data-aos="fade-up">
-        <span class="page-title-txt">成長趨勢</span>
+        <span class="page-title-txt">{{ t('AboutView.trend_title') }}</span>
       </div>
 
       <!-- 成長趨勢 內容 + animate -->
       <div class="lg:px-20 mb-5 lg:mb-10 md:text-lg" data-aos="fade-up">
-        {{ organizeInfo[0].trend_txt }}
+        {{ t('AboutView.trend_txt') }}
       </div>
 
       <!-- animate -->
       <div class="lg:grid lg:grid-cols-2 lg:gap-10" data-aos="fade-up">
         <!-- chart 1 -->
         <div class="growth-box">
-          <h3 class="text-2xl font-semibold text-center mb-2">貓貓成長趨勢</h3>
+          <h3 class="text-2xl font-semibold text-center mb-2">{{ t('AboutView.trend_cat_title') }}</h3>
           <canvas ref="chartCanvas" width="854" height="427"></canvas>
-          <p class="text-right text-gray-400 mt-2">(單位：貓)</p>
+          <p class="text-right text-gray-400 mt-2">({{ t('AboutView.trend_cat_unit') }})</p>
         </div>
 
         <!-- chart 2 -->
         <div class="growth-box">
-          <h3 class="text-2xl font-semibold text-center mb-2">團隊人數成長趨勢</h3>
+          <h3 class="text-2xl font-semibold text-center mb-2">{{ t('AboutView.trend_team_title') }}</h3>
           <canvas ref="lineChart" width="854" height="427"></canvas>
-          <p class="text-right text-gray-400 mt-2">(單位：人)</p>
+          <p class="text-right text-gray-400 mt-2">({{ t('AboutView.trend_team_unit') }})</p>
         </div>
       </div>
     </div>

@@ -77,7 +77,7 @@ const goBack = () => {
           @click="goBack"
           class="btn-back"
         >
-          返回上一頁
+          {{ t('ServiceView.back') }}
         </button>
       </div>
     </div>
