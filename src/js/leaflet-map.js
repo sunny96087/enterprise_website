@@ -5,6 +5,17 @@ let map = null
 let originalMarkers = []
 let currentMarkers = [] // 保存當前顯示的標記
 
+// 修復默認圖標路徑問題
+import icon from 'leaflet/dist/images/marker-icon.png'
+import iconShadow from 'leaflet/dist/images/marker-shadow.png'
+
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
 // 地圖設定
 export function initializeMap() {
   map = L.map('map').setView([23.6978, 120.9605], 7) //以台灣為中心
