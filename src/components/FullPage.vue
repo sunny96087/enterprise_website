@@ -19,57 +19,66 @@ const fullpageApi = ref(null)
 
 // 初始化 fullpage.js
 function initFullpage() {
-  if (fullpageApi.value) {
-    destroyFullpage()
-  }
-
-  fullpageApi.value = new fullpage('#fullpage', {
-    autoScrolling: true,
-    scrollOverflow: true,
-    sectionSelector: '.my-section',
-    navigation: true,
-    // 确保所有区块都能正确加载
-    afterRender: function () {
-      // 强制重新计算高度
-      fullpageApi.value.reBuild()
-    },
-    // 添加过渡效果
-    css3: true,
-    // 确保区块能完整显示
-    fitToSection: true,
-    // 设置合理的滚动速度
-    scrollingSpeed: 700,
-    anchors: [
-      'my-section1',
-      'my-section2',
-      'my-section3',
-      'my-section4',
-      'my-section5',
-      'my-section6'
-    ]
+  destroyFullpage()
+  
+  nextTick(() => {
+    fullpageApi.value = new fullpage('#fullpage', {
+      // 移除 licenseKey 或使用免費版本的配置
+      autoScrolling: true,
+      scrollOverflow: true,
+      sectionSelector: '.my-section',
+      navigation: true,
+      // 修改 afterRender 回調
+      afterRender: function () {
+        // 使用正確的 API 方法
+        if (fullpageApi.value) {
+          fullpageApi.value.reBuild()
+        }
+      },
+      beforeLeave: function() {
+        return !fullpageApi.value?.isDestroyed
+      },
+      css3: true,
+      fitToSection: true,
+      scrollingSpeed: 700,
+      anchors: [
+        'my-section1',
+        'my-section2',
+        'my-section3',
+        'my-section4',
+        'my-section5',
+        'my-section6'
+      ],
+      // 添加以下選項來使用免費版本
+      credits: {
+        enabled: true,
+        label: 'Made with fullPage.js',
+        position: 'right'
+      }
+    })
   })
 }
 
 // 銷毀 fullpage.js 實例
 function destroyFullpage() {
   if (fullpageApi.value) {
-    // 移除所有 fullpage 相關的類和樣式
+    // 移除所有相關的樣式
+    const elements = document.querySelectorAll(
+      '.fp-enabled, .fp-viewing, .fp-responsive, .fp-destroyed, .fp-section, .fp-slide'
+    )
+    elements.forEach((el) => {
+      Array.from(el.classList)
+        .filter((className) => className.startsWith('fp-'))
+        .forEach((className) => el.classList.remove(className))
+    })
+
+    // 重置滾動行為
     document.documentElement.style.overflow = ''
     document.body.style.overflow = ''
-    const fullPageWrapper = document.querySelector('#fullpage')
-    if (fullPageWrapper) {
-      fullPageWrapper.style.transform = ''
-      fullPageWrapper.style.transition = ''
-    }
 
-    // 銷毀實例
+    // 清理實例
     fullpageApi.value.destroy('all')
     fullpageApi.value = null
-
-    // 移除所有 fullpage 相關的類
-    document.querySelectorAll('.fp-enabled, .fp-viewing, .fp-responsive').forEach((el) => {
-      el.classList.remove('fp-enabled', 'fp-viewing', 'fp-responsive')
-    })
   }
 }
 
