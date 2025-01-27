@@ -1,7 +1,7 @@
 <!-- FullPageTw.vue -->
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref, reactive } from 'vue'
+import { onMounted, onBeforeUnmount, ref, reactive, nextTick } from 'vue'
 
 // * FullPage.js
 import fullpage from 'fullpage.js'
@@ -12,11 +12,26 @@ const fullpageApi = ref(null)
 
 // 初始化 fullpage.js
 function initFullpage() {
+  if (fullpageApi.value) {
+    destroyFullpage()
+  }
+  
   fullpageApi.value = new fullpage('#fullpage', {
     autoScrolling: true,
     scrollOverflow: true,
     sectionSelector: '.my-section',
     navigation: true,
+    // 确保所有区块都能正确加载
+    afterRender: function() {
+      // 强制重新计算高度
+      fullpageApi.value.reBuild()
+    },
+    // 添加过渡效果
+    css3: true,
+    // 确保区块能完整显示
+    fitToSection: true,
+    // 设置合理的滚动速度
+    scrollingSpeed: 700,
     anchors: [
       'my-section1',
       'my-section2',
@@ -36,13 +51,19 @@ function destroyFullpage() {
   }
 }
 
-// // 檢查並根據螢幕寬度初始化或銷毀 fullpage.js
+// 檢查並根據螢幕寬度初始化或銷毀 fullpage.js
 function checkFullpageInit() {
   const screenWidth = window.innerWidth
   if (screenWidth > 768) {
-    if (!fullpageApi.value) {
-      initFullpage()
-    }
+    // 添加延时确保 DOM 完全加载
+    setTimeout(() => {
+      if (!fullpageApi.value) {
+        initFullpage()
+      } else {
+        // 重新构建以适应可能的内容变化
+        fullpageApi.value.reBuild()
+      }
+    }, 100)
   } else {
     destroyFullpage()
   }
@@ -50,8 +71,11 @@ function checkFullpageInit() {
 
 // 當組件掛載時初始化 fullpage.js 或添加事件監聽器
 onMounted(() => {
-  checkFullpageInit()
-  window.addEventListener('resize', checkFullpageInit)
+  // 确保 DOM 完全加载后再初始化
+  nextTick(() => {
+    checkFullpageInit()
+    window.addEventListener('resize', checkFullpageInit)
+  })
 })
 
 // 在組件卸載前銷毀 fullpage.js 並移除事件監聽器
