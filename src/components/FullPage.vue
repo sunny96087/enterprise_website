@@ -1,30 +1,48 @@
-<!-- FullPageEn.vue -->
+<!-- FullPageTw.vue -->
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref, reactive } from 'vue'
+import { onMounted, onBeforeUnmount, ref, reactive, nextTick, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 // * FullPage.js
 import fullpage from 'fullpage.js'
 import Footer from './FooterView.vue'
+
+// 初始化 i18n
+const { t } = useI18n()
 
 // 用於存儲 fullpage.js 實例的 ref
 const fullpageApi = ref(null)
 
 // 初始化 fullpage.js
 function initFullpage() {
+  if (fullpageApi.value) {
+    destroyFullpage()
+  }
+
   fullpageApi.value = new fullpage('#fullpage', {
     autoScrolling: true,
     scrollOverflow: true,
     sectionSelector: '.my-section',
     navigation: true,
+    // 确保所有区块都能正确加载
+    afterRender: function () {
+      // 强制重新计算高度
+      fullpageApi.value.reBuild()
+    },
+    // 添加过渡效果
+    css3: true,
+    // 确保区块能完整显示
+    fitToSection: true,
+    // 设置合理的滚动速度
+    scrollingSpeed: 700,
     anchors: [
       'my-section1',
       'my-section2',
       'my-section3',
       'my-section4',
       'my-section5',
-      'my-section6',
-      'my-section7'
+      'my-section6'
     ]
   })
 }
@@ -37,13 +55,19 @@ function destroyFullpage() {
   }
 }
 
-// // 檢查並根據螢幕寬度初始化或銷毀 fullpage.js
+// 檢查並根據螢幕寬度初始化或銷毀 fullpage.js
 function checkFullpageInit() {
   const screenWidth = window.innerWidth
   if (screenWidth > 768) {
-    if (!fullpageApi.value) {
-      initFullpage()
-    }
+    // 添加延时确保 DOM 完全加载
+    setTimeout(() => {
+      if (!fullpageApi.value) {
+        initFullpage()
+      } else {
+        // 重新构建以适应可能的内容变化
+        fullpageApi.value.reBuild()
+      }
+    }, 100)
   } else {
     destroyFullpage()
   }
@@ -51,8 +75,11 @@ function checkFullpageInit() {
 
 // 當組件掛載時初始化 fullpage.js 或添加事件監聽器
 onMounted(() => {
-  checkFullpageInit()
-  window.addEventListener('resize', checkFullpageInit)
+  // 确保 DOM 完全加载后再初始化
+  nextTick(() => {
+    checkFullpageInit()
+    window.addEventListener('resize', checkFullpageInit)
+  })
 })
 
 // 在組件卸載前銷毀 fullpage.js 並移除事件監聽器
@@ -127,7 +154,11 @@ const slides = ref([
 
 import { ServeInfo } from '../js/serveInfo.js'
 
-const splitServeTxt = (txt) => txt.split(',')
+// 分割文字的方法
+const splitServeTxt = (text) => {
+  if (!text) return []
+  return text.split(',').map((item) => item.trim())
+}
 
 // 路由
 import { useRouter } from 'vue-router'
@@ -136,7 +167,7 @@ const router = useRouter()
 
 const navigateToDetail = (serveNo) => {
   // 英文的就改成 name: 'serviceEn'
-  router.push({ name: 'serviceEn', params: { id: serveNo } })
+  router.push({ name: 'service', params: { id: serveNo } })
 }
 </script>
 
@@ -153,9 +184,9 @@ const navigateToDetail = (serveNo) => {
     <template #addons>
       <div class="overlay absolute inset-0 bg-black opacity-50"></div>
       <div class="txt">
-        <h1 class="text-2xl sm:text-4xl font-bold">{{ HomeInfo[0].home_title_en }}</h1>
+        <h1 class="text-2xl sm:text-4xl font-bold">{{ t('FullPage.home_title') }}</h1>
         <p class="text-sm sm:text-xl text-left max-w-md sm:max-w-2xl break-words">
-          {{ HomeInfo[0].home_txt_en }}
+          {{ t('FullPage.home_txt') }}
         </p>
       </div>
 
@@ -176,11 +207,13 @@ const navigateToDetail = (serveNo) => {
 
   <!-- * screen > 768px -->
   <div id="fullpage" class="hidden md:block">
+    <!-- <div class="section">第一節</div> -->
+
     <!-- * 第 2 節 -->
     <div class="my-section my-section-p">
       <!-- title -->
       <div class="page-title" style="margin-top: 40px">
-        <span class="page-title-txt">Store manager cats</span>
+        <span class="page-title-txt">{{ t('FullPage.home_title_cat') }}</span>
       </div>
 
       <!-- sec 1 -->
@@ -190,14 +223,14 @@ const navigateToDetail = (serveNo) => {
         </div>
 
         <div class="block-content">
-          <h3 class="block-title">{{ ServeInfo[0].serve_title_en }}</h3>
+          <h3 class="block-title">{{ t('CatInfo.cat1.name') }}</h3>
           <ul class="block-txt">
-            <li v-for="(item, index) in splitServeTxt(ServeInfo[0].serve_txt_en)" :key="index">
+            <li v-for="(item, index) in splitServeTxt(t('CatInfo.cat1.traits'))" :key="index">
               {{ item }}
             </li>
           </ul>
           <!-- 使用 RouterLink 並帶動態參數 -->
-          <button class="btn-more" @click="navigateToDetail(ServeInfo[0].serve_no)">
+          <button class="btn-more" @click="navigateToDetail(t('CatInfo.cat1.id'))">
             <span class="btn-more-icon">MORE</span>
           </button>
         </div>
@@ -210,10 +243,10 @@ const navigateToDetail = (serveNo) => {
         </div>
 
         <div class="block-content">
-          <h3 class="block-title">{{ ServeInfo[1].serve_title_en }}</h3>
+          <h3 class="block-title">{{ t('CatInfo.cat2.name') }}</h3>
           <ul class="block-txt">
             <li
-              v-for="(item, index) in splitServeTxt(ServeInfo[1].serve_txt_en)"
+              v-for="(item, index) in splitServeTxt(t('CatInfo.cat2.traits'))"
               :key="index"
               class=""
             >
@@ -221,7 +254,7 @@ const navigateToDetail = (serveNo) => {
             </li>
           </ul>
           <!-- 使用 RouterLink 並帶動態參數 -->
-          <button class="btn-more" @click="navigateToDetail(ServeInfo[1].serve_no)">
+          <button class="btn-more" @click="navigateToDetail(t('CatInfo.cat2.id'))">
             <span class="btn-more-icon">MORE</span>
           </button>
         </div>
@@ -234,12 +267,12 @@ const navigateToDetail = (serveNo) => {
     <!-- * 第 3 節 -->
     <div class="my-section my-section-p">
       <!-- sec 1 -->
-      <div class="my-section-block-reverse -translate-x-12">
+      <div class="my-section-block-reverse -translate-x-10">
         <div class="block-content">
-          <h3 class="block-title">{{ ServeInfo[2].serve_title_en }}</h3>
+          <h3 class="block-title">{{ t('CatInfo.cat3.name') }}</h3>
           <ul class="block-txt">
             <li
-              v-for="(item, index) in splitServeTxt(ServeInfo[2].serve_txt_en)"
+              v-for="(item, index) in splitServeTxt(t('CatInfo.cat3.traits'))"
               :key="index"
               class=""
             >
@@ -247,7 +280,7 @@ const navigateToDetail = (serveNo) => {
             </li>
           </ul>
           <!-- 使用 RouterLink 並帶動態參數 -->
-          <button class="btn-more" @click="navigateToDetail(ServeInfo[2].serve_no)">
+          <button class="btn-more" @click="navigateToDetail(t('CatInfo.cat3.id'))">
             <span class="btn-more-icon">MORE</span>
           </button>
         </div>
@@ -257,12 +290,12 @@ const navigateToDetail = (serveNo) => {
       </div>
 
       <!-- sec 2 -->
-      <div class="my-section-block-reverse mt-4">
+      <div class="my-section-block-reverse -mt-10">
         <div class="block-content">
-          <h3 class="block-title">{{ ServeInfo[3].serve_title_en }}</h3>
+          <h3 class="block-title">{{ t('CatInfo.cat4.name') }}</h3>
           <ul class="block-txt">
             <li
-              v-for="(item, index) in splitServeTxt(ServeInfo[3].serve_txt_en)"
+              v-for="(item, index) in splitServeTxt(t('CatInfo.cat4.traits'))"
               :key="index"
               class=""
             >
@@ -270,7 +303,7 @@ const navigateToDetail = (serveNo) => {
             </li>
           </ul>
           <!-- 使用 RouterLink 並帶動態參數 -->
-          <button class="btn-more" @click="navigateToDetail(ServeInfo[3].serve_no)">
+          <button class="btn-more" @click="navigateToDetail(t('CatInfo.cat4.id'))">
             <span class="btn-more-icon">MORE</span>
           </button>
         </div>
@@ -294,10 +327,10 @@ const navigateToDetail = (serveNo) => {
         </div>
 
         <div class="block-content">
-          <h3 class="block-title">{{ ServeInfo[4].serve_title_en }}</h3>
+          <h3 class="block-title">{{ t('CatInfo.cat5.name') }}</h3>
           <ul class="block-txt">
             <li
-              v-for="(item, index) in splitServeTxt(ServeInfo[4].serve_txt_en)"
+              v-for="(item, index) in splitServeTxt(t('CatInfo.cat5.traits'))"
               :key="index"
               class=""
             >
@@ -305,7 +338,7 @@ const navigateToDetail = (serveNo) => {
             </li>
           </ul>
           <!-- 使用 RouterLink 並帶動態參數 -->
-          <button class="btn-more" @click="navigateToDetail(ServeInfo[4].serve_no)">
+          <button class="btn-more" @click="navigateToDetail(t('CatInfo.cat5.id'))">
             <span class="btn-more-icon">MORE</span>
           </button>
         </div>
@@ -318,10 +351,10 @@ const navigateToDetail = (serveNo) => {
         </div>
 
         <div class="block-content">
-          <h3 class="block-title">{{ ServeInfo[5].serve_title_en }}</h3>
+          <h3 class="block-title">{{ t('CatInfo.cat6.name') }}</h3>
           <ul class="block-txt">
             <li
-              v-for="(item, index) in splitServeTxt(ServeInfo[5].serve_txt_en)"
+              v-for="(item, index) in splitServeTxt(t('CatInfo.cat6.traits'))"
               :key="index"
               class=""
             >
@@ -329,7 +362,7 @@ const navigateToDetail = (serveNo) => {
             </li>
           </ul>
           <!-- 使用 RouterLink 並帶動態參數 -->
-          <button class="btn-more" @click="navigateToDetail(ServeInfo[5].serve_no)">
+          <button class="btn-more" @click="navigateToDetail(t('CatInfo.cat6.id'))">
             <span class="btn-more-icon">MORE</span>
           </button>
         </div>
@@ -340,10 +373,10 @@ const navigateToDetail = (serveNo) => {
     <div class="my-section my-section-p">
       <div class="my-section-block-reverse -translate-x-10">
         <div class="block-content">
-          <h3 class="block-title">{{ ServeInfo[6].serve_title_en }}</h3>
+          <h3 class="block-title">{{ t('CatInfo.cat7.name') }}</h3>
           <ul class="block-txt">
             <li
-              v-for="(item, index) in splitServeTxt(ServeInfo[6].serve_txt_en)"
+              v-for="(item, index) in splitServeTxt(t('CatInfo.cat7.traits'))"
               :key="index"
               class=""
             >
@@ -351,7 +384,7 @@ const navigateToDetail = (serveNo) => {
             </li>
           </ul>
           <!-- 使用 RouterLink 並帶動態參數 -->
-          <button class="btn-more" @click="navigateToDetail(ServeInfo[6].serve_no)">
+          <button class="btn-more" @click="navigateToDetail(t('CatInfo.cat7.id'))">
             <span class="btn-more-icon">MORE</span>
           </button>
         </div>
@@ -368,38 +401,197 @@ const navigateToDetail = (serveNo) => {
   </div>
 
   <!-- screen < 768px -->
-  <div class="mb:hidden">
+  <div class="mb:hidden pb-10">
     <!-- 服務項目 title + animate -->
     <div class="page-title animate__animated animate__flipInX">
-      <span class="page-title-txt">服務項目</span>
+      <span class="page-title-txt">{{ t('FullPage.home_title_cat') }}</span>
     </div>
     <!-- * 服務項目 -->
     <div class="serve-block flex flex-col gap-8 px-5 sm:px-10">
-      <div class="serve-block-item" v-for="(item, index) in ServeInfo" :key="index">
-        <!-- {{ item.serve_title }} -->
-
-        <!-- image -->
+      <!-- ? 貓咪 1 -->
+      <div class="serve-block-item">
         <div class="h-[280px] rounded-xl overflow-hidden">
-          <img :src="item.serve_block1_pic" alt="誠諾服務項目圖片" class="pic" />
+          <img :src="ServeInfo[0]?.serve_block1_pic" :alt="t('CatInfo.cat1.name')" class="pic" />
         </div>
 
-        <!-- title -->
         <h3 class="text-lg sm:text-xl font-medium mt-2 sm:mt-4 text-blue">
-          {{ item.serve_title }}
+          {{ t('CatInfo.cat1.name') }}
         </h3>
-        <!-- txt -->
+
         <ul class="ml-5 my-2 flex flex-col gap-2 text-base">
           <li
-            v-for="(item, index) in splitServeTxt(ServeInfo[0].serve_txt)"
-            :key="index"
+            v-for="(trait, traitIndex) in splitServeTxt(t('CatInfo.cat1.traits'))"
+            :key="traitIndex"
             class="list-item list-disc pl-1"
           >
-            {{ item }}
+            {{ trait }}
           </li>
         </ul>
-        <!-- btn -->
+
         <div class="flex justify-end">
-          <button class="btn-more" @click="navigateToDetail(item.serve_no)">
+          <button class="btn-more" @click="navigateToDetail(1)">
+            <span class="btn-more-icon">MORE</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ? 貓咪 2 -->
+      <div class="serve-block-item">
+        <div class="h-[280px] rounded-xl overflow-hidden">
+          <img :src="ServeInfo[1]?.serve_block1_pic" :alt="t('CatInfo.cat2.name')" class="pic" />
+        </div>
+
+        <h3 class="text-lg sm:text-xl font-medium mt-2 sm:mt-4 text-blue">
+          {{ t('CatInfo.cat2.name') }}
+        </h3>
+
+        <ul class="ml-5 my-2 flex flex-col gap-2 text-base">
+          <li
+            v-for="(trait, traitIndex) in splitServeTxt(t('CatInfo.cat2.traits'))"
+            :key="traitIndex"
+            class="list-item list-disc pl-1"
+          >
+            {{ trait }}
+          </li>
+        </ul>
+
+        <div class="flex justify-end">
+          <button class="btn-more" @click="navigateToDetail(2)">
+            <span class="btn-more-icon">MORE</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ? 貓咪 3 -->
+      <div class="serve-block-item">
+        <div class="h-[280px] rounded-xl overflow-hidden">
+          <img :src="ServeInfo[2]?.serve_block1_pic" :alt="t('CatInfo.cat3.name')" class="pic" />
+        </div>
+
+        <h3 class="text-lg sm:text-xl font-medium mt-2 sm:mt-4 text-blue">
+          {{ t('CatInfo.cat2.name') }}
+        </h3>
+
+        <ul class="ml-5 my-2 flex flex-col gap-2 text-base">
+          <li
+            v-for="(trait, traitIndex) in splitServeTxt(t('CatInfo.cat3.traits'))"
+            :key="traitIndex"
+            class="list-item list-disc pl-1"
+          >
+            {{ trait }}
+          </li>
+        </ul>
+
+        <div class="flex justify-end">
+          <button class="btn-more" @click="navigateToDetail(3)">
+            <span class="btn-more-icon">MORE</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ? 貓咪 4 -->
+      <div class="serve-block-item">
+        <div class="h-[280px] rounded-xl overflow-hidden">
+          <img :src="ServeInfo[3]?.serve_block1_pic" :alt="t('CatInfo.cat4.name')" class="pic" />
+        </div>
+
+        <h3 class="text-lg sm:text-xl font-medium mt-2 sm:mt-4 text-blue">
+          {{ t('CatInfo.cat4.name') }}
+        </h3>
+
+        <ul class="ml-5 my-2 flex flex-col gap-2 text-base">
+          <li
+            v-for="(trait, traitIndex) in splitServeTxt(t('CatInfo.cat4.traits'))"
+            :key="traitIndex"
+            class="list-item list-disc pl-1"
+          >
+            {{ trait }}
+          </li>
+        </ul>
+
+        <div class="flex justify-end">
+          <button class="btn-more" @click="navigateToDetail(4)">
+            <span class="btn-more-icon">MORE</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ? 貓咪 5 -->
+      <div class="serve-block-item">
+        <div class="h-[280px] rounded-xl overflow-hidden">
+          <img :src="ServeInfo[4]?.serve_block1_pic" :alt="t('CatInfo.cat5.name')" class="pic" />
+        </div>
+
+        <h3 class="text-lg sm:text-xl font-medium mt-2 sm:mt-4 text-blue">
+          {{ t('CatInfo.cat5.name') }}
+        </h3>
+
+        <ul class="ml-5 my-2 flex flex-col gap-2 text-base">
+          <li
+            v-for="(trait, traitIndex) in splitServeTxt(t('CatInfo.cat5.traits'))"
+            :key="traitIndex"
+            class="list-item list-disc pl-1"
+          >
+            {{ trait }}
+          </li>
+        </ul>
+
+        <div class="flex justify-end">
+          <button class="btn-more" @click="navigateToDetail(5)">
+            <span class="btn-more-icon">MORE</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ? 貓咪 6 -->
+      <div class="serve-block-item">
+        <div class="h-[280px] rounded-xl overflow-hidden">
+          <img :src="ServeInfo[5]?.serve_block1_pic" :alt="t('CatInfo.cat6.name')" class="pic" />
+        </div>
+
+        <h3 class="text-lg sm:text-xl font-medium mt-2 sm:mt-4 text-blue">
+          {{ t('CatInfo.cat6.name') }}
+        </h3>
+
+        <ul class="ml-5 my-2 flex flex-col gap-2 text-base">
+          <li
+            v-for="(trait, traitIndex) in splitServeTxt(t('CatInfo.cat6.traits'))"
+            :key="traitIndex"
+            class="list-item list-disc pl-1"
+          >
+            {{ trait }}
+          </li>
+        </ul>
+
+        <div class="flex justify-end">
+          <button class="btn-more" @click="navigateToDetail(6)">
+            <span class="btn-more-icon">MORE</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ? 貓咪 7 -->
+      <div class="serve-block-item">
+        <div class="h-[280px] rounded-xl overflow-hidden">
+          <img :src="ServeInfo[6]?.serve_block1_pic" :alt="t('CatInfo.cat7.name')" class="pic" />
+        </div>
+
+        <h3 class="text-lg sm:text-xl font-medium mt-2 sm:mt-4 text-blue">
+          {{ t('CatInfo.cat7.name') }}
+        </h3>
+
+        <ul class="ml-5 my-2 flex flex-col gap-2 text-base">
+          <li
+            v-for="(trait, traitIndex) in splitServeTxt(t('CatInfo.cat7.traits'))"
+            :key="traitIndex"
+            class="list-item list-disc pl-1"
+          >
+            {{ trait }}
+          </li>
+        </ul>
+
+        <div class="flex justify-end">
+          <button class="btn-more" @click="navigateToDetail(7)">
             <span class="btn-more-icon">MORE</span>
           </button>
         </div>
@@ -408,12 +600,12 @@ const navigateToDetail = (serveNo) => {
 
     <!-- * 代表客戶 -->
     <!-- title -->
-    <div class="page-title">
+    <!-- <div class="page-title">
       <span class="page-title-txt">代表客戶</span>
-    </div>
+    </div> -->
 
     <!-- * client 輪播圖 -->
-    <carousel
+    <!-- <carousel
       v-bind="settingsClient"
       :wrap-around="true"
       :autoplay="3000"
@@ -421,10 +613,10 @@ const navigateToDetail = (serveNo) => {
       class="carousel-client"
     >
       <slide v-for="(clientSlide, index) in clientSlides" :key="index" class="slide">
-        <!-- <div
+       <div
         class="carousel__item bg-pic"
         :style="{ backgroundImage: 'url(' + clientSlide + ')' }"
-      ></div> -->
+      ></div> 
         <div class="carousel__item">
           <img :src="clientSlide" alt="" class="w-full h-full" />
         </div>
@@ -434,7 +626,7 @@ const navigateToDetail = (serveNo) => {
         <Pagination />
         <Navigation />
       </template>
-    </carousel>
+    </carousel> -->
   </div>
 </template>
 
@@ -455,7 +647,7 @@ const navigateToDetail = (serveNo) => {
 
   .my-section-block {
     @apply grid w-full items-center;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 60% 40%;
 
     .block-pic {
       @apply w-full h-[32vh] lg:h-[36vh] xl:h-[40vh] rounded-xl overflow-hidden;
@@ -482,7 +674,7 @@ const navigateToDetail = (serveNo) => {
 
   .my-section-block-reverse {
     @apply grid w-full items-center;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 40% 60%;
 
     .block-pic {
       @apply w-full h-[32vh] lg:h-[36vh] xl:h-[40vh] rounded-xl overflow-hidden;
@@ -491,7 +683,7 @@ const navigateToDetail = (serveNo) => {
     }
 
     .block-content {
-      @apply w-full pr-5;
+      @apply w-full pl-10 lg:pl-[60px];
 
       .block-title {
         @apply text-[28px] font-medium;
@@ -499,7 +691,7 @@ const navigateToDetail = (serveNo) => {
       }
 
       .block-txt {
-        @apply ml-5 mt-2 mb-4 flex flex-col gap-2;
+        @apply ml-5 my-4 flex flex-col gap-2;
         li {
           @apply list-item list-disc pl-1;
         }

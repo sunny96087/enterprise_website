@@ -4,9 +4,13 @@
 import { computed } from 'vue'
 import { ServeInfo } from '../js/serveInfo.js'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const route = useRoute()
 const serveId = parseInt(route.params.id, 10) // 從路由參數獲取並轉換為數字
+console.log(serveId);
+
 
 const specificData = computed(() => ServeInfo.value.find((item) => item.serve_no === serveId))
 
@@ -27,7 +31,7 @@ const goBack = () => {
         :style="{ backgroundImage: 'url(' + specificData.serve_title_pic + ')' }"
       ></div>
       <div class="banner-overlay"></div>
-      <div class="banner-title first-letter-underline">{{ specificData.serve_title }}</div>
+      <div class="banner-title first-letter-underline">{{ t('CatInfo.cat' + serveId + '.name') }}</div>
     </div>
 
     <div class="page-content page-content-top flex flex-col gap-10">
@@ -36,10 +40,10 @@ const goBack = () => {
         <!-- 區塊文字 -->
         <div class="serve-block-txt">
           <h3 class="serve-block-txt-title">
-            {{ specificData.serve_block1_title }}
+            {{ t('CatInfo.cat' + serveId + '.story_title') }}
           </h3>
           <p class="serve-block-txt-content">
-            {{ specificData.serve_block1_txt }}
+            {{ t('CatInfo.cat' + serveId + '.story') }}
           </p>
         </div>
 
@@ -59,10 +63,10 @@ const goBack = () => {
         <!-- 區塊文字 -->
         <div class="serve-block-txt">
           <h3 class="serve-block-txt-title">
-            {{ specificData.serve_block2_title }}
+            {{ t('CatInfo.cat' + serveId + '.favorite_title') }}
           </h3>
           <p class="serve-block-txt-content">
-            {{ specificData.serve_block2_txt }}
+            {{ t('CatInfo.cat' + serveId + '.favorite') }}
           </p>
         </div>
       </div>
