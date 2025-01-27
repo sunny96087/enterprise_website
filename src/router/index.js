@@ -40,53 +40,53 @@ const router = createRouter({
       name: 'contact',
       component: () => import('../views/ContactView.vue')
     },
-    {
-      path: '/En',
-      name: 'homeEn',
-      component: () => import('../views/HomeViewEn.vue')
-      // component: HomeView
-    },
-    {
-      path: '/aboutEn',
-      name: 'aboutEn',
-      component: () => import('../views/AboutViewEn.vue')
-    },
-    {
-      path: '/licenseEn',
-      name: 'licenseEn',
-      component: () => import('../views/LicenseViewEn.vue')
-    },
-    {
-      path: '/organizeEn',
-      name: 'organizeEn',
-      component: () => import('../views/OrganizeViewEn.vue')
-    },
-    {
-      path: '/businessEn',
-      name: 'businessEn',
-      component: () => import('../views/BusinessViewEn.vue')
-    },
-    {
-      path: '/newsEn',
-      name: 'newsEn',
-      component: () => import('../views/NewsViewEn.vue')
-    },
-    {
-      path: '/contactEn',
-      name: 'contactEn',
-      component: () => import('../views/ContactViewEn.vue')
-    },
+    // {
+    //   path: '/En',
+    //   name: 'homeEn',
+    //   component: () => import('../views/HomeViewEn.vue')
+    //   // component: HomeView
+    // },
+    // {
+    //   path: '/aboutEn',
+    //   name: 'aboutEn',
+    //   component: () => import('../views/AboutViewEn.vue')
+    // },
+    // {
+    //   path: '/licenseEn',
+    //   name: 'licenseEn',
+    //   component: () => import('../views/LicenseViewEn.vue')
+    // },
+    // {
+    //   path: '/organizeEn',
+    //   name: 'organizeEn',
+    //   component: () => import('../views/OrganizeViewEn.vue')
+    // },
+    // {
+    //   path: '/businessEn',
+    //   name: 'businessEn',
+    //   component: () => import('../views/BusinessViewEn.vue')
+    // },
+    // {
+    //   path: '/newsEn',
+    //   name: 'newsEn',
+    //   component: () => import('../views/NewsViewEn.vue')
+    // },
+    // {
+    //   path: '/contactEn',
+    //   name: 'contactEn',
+    //   component: () => import('../views/ContactViewEn.vue')
+    // },
     // 服務項目內頁
     {
       path: '/service/:id', // :id 是動態參數
       name: 'service',
       component: () => import('../views/ServiceView.vue')
     },
-    {
-      path: '/serviceEn/:id',
-      name: 'serviceEn',
-      component: () => import('../views/ServiceViewEn.vue')
-    },
+    // {
+    //   path: '/serviceEn/:id',
+    //   name: 'serviceEn',
+    //   component: () => import('../views/ServiceViewEn.vue')
+    // },
     // 添加一個捕獲所有未匹配路徑的規則，並重定向到根路徑
     {
       path: '/:pathMatch(.*)*',
