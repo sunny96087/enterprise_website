@@ -128,5 +128,26 @@ export default {
     cat_shelter: 'Cat Shelters',
     cat_salon: 'Cat Grooming Services',
     pet_shop: 'Pet Supplies Stores',
+  },
+  NewsView: {
+    news_title: 'Latest News',
+    news1: {
+      article_no: 1,
+      article_title: '【Food Report】Meow Café: Savor Coffee in the World of Cats',
+      article_pic: '/img/NewsView/news1.png',
+      article_txt:
+        'Meow Café won the "Best Creative Food Award" at the "International Food and Flavor Exhibition" this year. This unique café combines the two passions of cat lovers: coffee and cats. The judges praised the café for not only providing top-tier coffee but also creating a space where cats and humans can coexist peacefully. Customers can enjoy their coffee while feeling the company of our cats.',
+      article_date: '2024/01/01',
+      article_link: ' '
+    },
+    news2: {
+      article_no: 2,
+      article_title: '【Social Care】Meow Café: A Haven for Stray Cats',
+      article_pic: '/img/NewsView/news2.png',
+      article_txt:
+        'Meow Café is not just a place for coffee and desserts; it is a warm home that deeply cares for stray cats in the community. This year, the café launched the "Stray Cat Shelter Program," providing a safe haven for these four-legged friends and collaborating with local animal protection organizations to find permanent homes for them. The café\'s initiative has received widespread acclaim from society, earning it a reputation as an industry benchmark.',
+      article_date: '2023/12/31',
+      article_link: ' '
+    }
   }
 }

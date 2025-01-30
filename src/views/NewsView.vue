@@ -1,8 +1,38 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, computed, watch } from 'vue'
 
 import { useI18n } from 'vue-i18n'
 
+const { t, locale } = useI18n()
+
+const articles = computed(() => [
+  {
+    article_no: t('NewsView.news1.article_no'),
+    article_title: t('NewsView.news1.article_title'),
+    article_pic: t('NewsView.news1.article_pic'),
+    article_txt: t('NewsView.news1.article_txt'),
+    article_date: t('NewsView.news1.article_date'),
+    article_link: t('NewsView.news1.article_link')
+  },
+  {
+    article_no: t('NewsView.news2.article_no'),
+    article_title: t('NewsView.news2.article_title'),
+    article_pic: t('NewsView.news2.article_pic'),
+    article_txt: t('NewsView.news2.article_txt'),
+    article_date: t('NewsView.news2.article_date'),
+    article_link: t('NewsView.news2.article_link')
+  }
+])
+console.log(articles.value)
+
+// 變換語言時，更新 articles
+watch(locale, (newLocale) => {
+  articles.value = computed(() => [
+    t('NewsView.news1'),
+    t('NewsView.news2')
+  ])
+  console.log(articles.value)
+})
 
 const newsInfo = [
   {
@@ -47,18 +77,18 @@ const redirectToArticle = (link) => {
       :style="{ backgroundImage: 'url(' + newsInfo[0].news_title_pic + ')' }"
     ></div>
     <div class="banner-overlay"></div>
-    <div class="banner-title first-letter-underline">{{ newsInfo[0].news_title }}</div>
+    <div class="banner-title first-letter-underline">{{ t('NewsView.news_title') }}</div>
   </div>
 
   <!-- 最新消息 title + animate -->
   <div class="page-title animate__animated animate__flipInX">
-    <span class="page-title-txt">{{ newsInfo[0].news_title }}</span>
+    <span class="page-title-txt">{{ t('NewsView.news_title') }}</span>
   </div>
 
   <!-- 新聞區塊  -->
   <div class="page-content">
     <!-- animate -->
-    <div class="news-block" v-for="article in news" :key="article.article_no" data-aos="fade-up">
+    <div class="news-block" v-for="article in articles" :key="article.article_no" data-aos="fade-up">
       <!-- 新聞圖片  -->
       <div class="news-img">
         <img class="pic" :src="article.article_pic" />

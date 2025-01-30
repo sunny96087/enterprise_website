@@ -128,5 +128,26 @@ export default {
     cat_shelter: '貓咪收容中心',
     cat_salon: '貓咪美容服務',
     pet_shop: '寵物用品專區',
+  },
+  NewsView: {
+    news_title: '最新消息',
+    news1: {
+      article_no: "1",
+      article_title: '【美食報導】貓貓咖啡廳：在喵的世界中品味咖啡',
+      article_pic: '/img/NewsView/news1.png',
+      article_txt:
+        '貓貓咖啡廳在今年的「國際美食與風味展」中擄獲了評審的心，榮獲「最佳創意美食獎」。這家獨特的咖啡廳結合了愛貓人士的兩大熱情：咖啡與貓咪。評審讚賞咖啡廳不僅提供頂級的咖啡，更創造了一個與貓咪和諧共處的空間，顧客可以在享受美食的同時，感受到來自喵星人的陪伴。',
+      article_date: '2024/01/01',
+      article_link: ' '
+    },
+    news2: {
+      article_no: '2',
+      article_title: '【社會關懷】貓貓咖啡廳：一個浪貓的避風港',
+      article_pic: '/img/NewsView/news2.png',
+      article_txt:
+        '貓貓咖啡廳不僅是一個提供優質咖啡和甜點的場所，它還是一個對社區流浪貓咪展現出深切關懷的溫暖家園。今年，咖啡廳推出了「流浪貓咪收容計劃」，不僅為這些四腳朋友提供了一個安全的庇護所，還與當地動物保護組織合作，為它們尋找永久的家。貓貓咖啡廳的這項舉措獲得了社會各界的廣泛讚譽，被視為業界的典範。',
+      article_date: '2023/12/31',
+      article_link: ' '
+    }
   }
 }
